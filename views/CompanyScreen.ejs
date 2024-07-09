@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Empresa</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 150px; /* Ajuste de margem superior */
+        }
+        /* Estilos da Navbar */
+        nav {
+            background-color: #091849; 
+            color: white;
+            padding: 20px 40px; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 4px solid #FA6916;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            position: fixed; /* Navbar fixada no topo */
+        }
+        .navbar-brand {
+            margin-left: 20px;
+        }
+        .logo {
+            margin-left: 20px;
+            max-width: 40px;
+            height: auto; 
+            transition: transform 0.2s ease-in-out; 
+        }
+        .logo:hover {
+            transform: scale(1.5); 
+        }
+        .nav-right {
+            display: flex;
+            margin-right: 20px;
+        }
+        .nav-right .nav-link {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 4px;
+        }
+        .nav-right .nav-link:hover {
+            background-color: #FA6916; 
+            transform: translateY(-2px);
+        }
+        .stars i {
+            color: #cccccc; /* Cinza para estrelas não preenchidas */
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .stars i.active {
+            color: #FFD700; /* Dourado para estrelas preenchidas */
+        }
+        .review {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .review:before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            border: 5px solid transparent;
+            border-right-color: #e9ecef;
+        }
+        .review p {
+            margin: 5px 0;
+        }
+        .review hr {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .review .user {
+            margin-top: auto;
+            color: #666;
+            font-size: 0.9rem;
+            align-self: flex-end;
+        }
+        .rating-section {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .rating-section h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="navbar-brand" href="/index.ejs"><img class="logo" src="/images/RotaLogo.png"></a>
+        <div class="nav-right ml-auto">
+            <a href="/index.ejs" class="nav-link">Voltar</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1><%= company.nm_empresa %></h1>
+        <p><strong>CNPJ:</strong> <%= company.cd_cnpj %></p>
+        <p><strong>Email:</strong> <%= company.email %></p>
+        <p><strong>Telefone:</strong> <%= company.telefone %></p>
+        <p><strong>Data de Fundação:</strong> <%= company.dt_fundacao.toISOString().slice(0, 10) %></p>
+        <p><strong>Site:</strong> <a href="<%= company.ds_site %>"><%= company.ds_site %></a></p>
+        <p><strong>CEP:</strong> <%= company.CEP %></p>
+
+        <hr> <!-- Linha horizontal separando informações da empresa e avaliações -->
+
+        <h2>Avaliações</h2>
+        <% if (user) { %>
+            <form action="/avaliar" method="post">
+                <input type="hidden" name="cnpj" value="<%= company.cd_cnpj %>">
+                <div class="form-group">
+                    <label for="avaliacao">O que acha dessa empresa?</label>
+                    <div class="stars" id="star-rating">
+                        <i class="fas fa-star" data-value="1"></i>
+                        <i class="fas fa-star" data-value="2"></i>
+                        <i class="fas fa-star" data-value="3"></i>
+                        <i class="fas fa-star" data-value="4"></i>
+                        <i class="fas fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="avaliacao" name="avaliacao" required>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Comentário:</label>
+                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+            </form>
+        <% } else { %>
+            <p>Para avaliar esta empresa, faça login.</p>
+            <a href="/login" class="btn btn-primary">Login</a>
+        <% } %>
+
+        <hr> <!-- Linha horizontal separando avaliações e comentários -->
+
+        <h3>Comentários</h3>
+        <% reviews.forEach(review => { %>
+            <div class="review">
+                <p><strong>Avaliação:</strong> <%= review.avaliacao %></p>
+                <p><strong>Comentário:</strong> <%= review.ds_comentario %></p>
+                <p class="user">Por: <%= review.nm_users %></p> <!-- Ajuste para exibir o nome do usuário -->
+                <hr>
+            </div>
+        <% }); %>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('#star-rating .fa-star');
+            const ratingInput = document.getElementById('avaliacao');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    ratingInput.value = value;
+                    stars.forEach(s => s.classList.remove('active'));
+                    for (let i = 0; i < value; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+nav {
+    background-color: #091849; 
+    color: white;
+    padding: 20px 40px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom: 4px solid #FA6916;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+.navbar-brand {
+    margin-left: 20px;
+}
+.logo {
+    margin-left: 20px;
+    max-width: 40px;
+    height: auto; 
+    transition: transform 0.2s ease-in-out; 
+}
+.logo:hover {
+    transform: scale(1.5); 
+}
+.nav-right {
+    display: flex;
+    margin-right: 20px;
+}
+.nav-right .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 4px;
+}
+.nav-right .nav-link:hover {
+    background-color: #FA6916; 
+    transform: translateY(-2px);
+}
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 150px; /* Aumentei a margem superior */
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    z-index: 999;
+    position: relative;
+}
+.container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.card {
+    min-height: 200px; /* Defina a altura mínima dos cards */
+    transition: background-color 0.5s ease-in-out;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 4px solid #091849; 
+    border-radius: 8px; 
+}
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px; 
+}
+.welcome-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.welcome-card h1 {
+    margin: 0;
+}
+.search-bar {
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+    z-index: 1001;
+    padding: 10px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.search-bar.show {
+    opacity: 1;
+}
+.search-bar input, .search-bar button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.search-bar button {
+    background-color: #FA6916;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.search-bar button:hover {
+    background-color: #cf4c00;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: black;
+}
+.rating {
+    font-size: 18px;
+}
+.rating > span {
+    color: gold; 
+}
+
+.carousel-item .card {
+    height: 100%;
+    border: 4px solid #091849;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-item .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; 
+}
+
+.carousel-item .card:nth-child(3n+1) {
+    margin-right: 2%;
+    margin-left: 0;
+}
+
+.carousel-item .card:nth-child(3n+2) {
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.carousel-item .card:nth-child(3n+3) {
+    margin-right: 0;
+    margin-left: 2%;
+}

@@ -1,0 +1,91 @@
+ /* Estilos para a navbar e outros elementos */
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #091849; /* azul */
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #FA6916;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: transform 0.2s ease; /* Apenas a transição de escala */
+}
+
+nav a:hover {
+    transform: translateY(-2px); /* Efeito de levantar um pouco no hover */
+}
+.container {
+max-width: 600px;
+margin: 20px auto;
+padding: 20px;
+background-color: #fff;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+transition: box-shadow 0.3s ease;
+text-align: center;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -70%);
+}
+
+
+.container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #091849; /* Azul */
+}
+
+.btn-primary {
+    background-color: #091849; /* Azul */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background-color: #FA6916; /* Azul mais escuro */
+    transform: translateY(-2px);
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.logo {
+    margin-left: 5px;
+    max-width: 40px;
+    height: auto;
+    transition: transform 0.2s ease-in-out; /* Transição apenas para a escala */
+}
+
+.logo:hover {
+    transform: scale(1.5); /* Efeito de escala no hover */
+}

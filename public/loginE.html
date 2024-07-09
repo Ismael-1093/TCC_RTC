@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Página de Login</title>
+</head>
+<body>
+
+    <nav>
+        <a class="navbar-brand" href="/index.ejs"><img class="logo" src="/images/RotaLogo.png"></a>
+        <div class="nav-right">
+            <a href="./registerE.html" class="nav-link">Inscreva-se</a>
+        </div>
+    </nav>
+    
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Faça Login</h5>
+                <form id="form" onsubmit="return false;">
+                    <div class="mb-3">
+                        <label for="cnpj" class="form-label">Insira seu CNPJ</label>
+                        <input type="text" class="form-control" id="cnpj" autocomplete="off" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Insira sua senha</label>
+                        <input type="password" class="form-control" id="password" autocomplete="off" required>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="error" style="display: none;"></div>
+                    <div class="alert alert-success" role="alert" id="success" style="display: none;"></div>
+                    <button id="loginButton" type="submit" class="btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/loginE.js"></script>
+</body>
+</html>

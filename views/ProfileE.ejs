@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil da Empresa</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #091849; 
+            color: white;
+            padding: 20px 40px; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 4px solid #FA6916;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .nav-right .nav-link {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 4px;
+        }
+
+        .nav-right .nav-link:hover {
+            background-color: #FA6916; 
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[readonly] {
+            background-color: #eee; /* Cor de fundo para campos somente leitura */
+            cursor: pointer;
+        }
+
+        input[type="text"]:not([readonly]),
+        input[type="password"]:not([readonly]) {
+            cursor: text; /* Cursor de texto nos campos editáveis */
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-start; /* Ajuste para alinhar à esquerda */
+            margin-top: 20px;
+            margin-left: -10px; /* Ajuste para alinhar corretamente com a margem do formulário */
+        }
+
+        .btn-container button {
+            margin-left: 10px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .logo {
+            margin-left: 20px;
+            max-width: 40px;
+            height: auto; 
+            transition: transform 0.2s ease-in-out; 
+        }
+
+        .logo:hover {
+            transform: scale(1.5); 
+        }
+
+        /* Estilos para os campos de senha */
+        #passwordFields {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        #passwordFields.visible {
+            opacity: 1;
+            max-height: 200px; /* Altura máxima dos campos de senha */
+            margin-top: 20px; /* Espaçamento superior */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="#"><img class="logo" src="/images/RotaLogo.png"></a>
+        <div class="nav-right">
+            <a href="/index.ejs" class="nav-link">Voltar</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Perfil da Empresa</h1>
+        <form id="editForm" action="/ProfileE/editar" method="POST">
+            <div>
+                <label for="nome">Nome da Empresa:</label>
+                <input type="text" id="nome" name="nome" value="<%= company.nm_empresa %>" readonly>
+            </div>
+
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" value="<%= company.telefone %>" readonly>
+            </div>
+
+            <div>
+                <label for="ds_site">Site:</label>
+                <input type="text" id="ds_site" name="ds_site" value="<%= company.ds_site %>" readonly>
+            </div>
+
+            <div>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" value="<%= company.CEP %>" readonly>
+            </div>
+
+            <div id="passwordFields">
+                <div>
+                    <label for="senha">Nova senha:</label>
+                    <input type="password" id="senha" name="senha">
+                </div>
+
+                <div>
+                    <label for="confirmarSenha">Confirmar nova senha:</label>
+                    <input type="password" id="confirmarSenha" name="confirmarSenha">
+                    <span id="senhaMismatch" class="error-message" style="display: none;">As senhas não coincidem. Por favor, tente novamente.</span>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" id="btnEdit">Editar Informações</button>
+                <button type="submit" id="btnSubmit" style="display: none;">Atualizar Perfil</button>
+                <button type="button" id="btnCancel" style="display: none;">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('btnEdit').addEventListener('click', function() {
+            var inputs = document.querySelectorAll('input[readonly]');
+            inputs.forEach(function(input) {
+                input.removeAttribute('readonly');
+            });
+
+            document.getElementById('passwordFields').classList.add('visible');
+            document.getElementById('btnEdit').style.display = 'none';
+            document.getElementById('btnSubmit').style.display = 'inline-block';
+            document.getElementById('btnCancel').style.display = 'inline-block';
+        });
+
+        document.getElementById('btnCancel').addEventListener('click', function() {
+            var inputs = document.querySelectorAll('input:not([name="senha"]), input:not([name="confirmarSenha"])');
+            inputs.forEach(function(input) {
+                input.setAttribute('readonly', true);
+            });
+
+            document.getElementById('passwordFields').classList.remove('visible');
+            document.getElementById('btnEdit').style.display = 'inline-block';
+            document.getElementById('btnSubmit').style.display = 'none';
+            document.getElementById('btnCancel').style.display = 'none';
+        });
+
+        function validateForm() {
+            var senha = document.getElementById("senha").value;
+            var confirmarSenha = document.getElementById("confirmarSenha").value;
+
+            if (senha !== confirmarSenha) {
+                document.getElementById("senhaMismatch").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("senhaMismatch").style.display = "none";
+                }, 3000); // Ocultar mensagem após 3 segundos
+                return false;
+            } else {
+                document.getElementById("senhaMismatch").style.display = "none";
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Página Inicial</title>
+
+
+</head>
+<body>
+    <nav>
+        <a class="navbar-brand" href="#"><img class="logo" src="/images/RotaLogo.png"></a>
+        <div class="nav-right">
+            <% if (status === "loggedIn") { %>
+                <a href="/Profile" class="nav-link">Perfil</a>
+                <a href="/logout" class="nav-link"><i class="fas fa-arrow-right-from-bracket" style="color: #ffffff;"></i></a>
+            <% } else if (status === "loggedinE") { %>
+                <a href="/profileE" class="nav-link">Perfil</a>
+                <a href="/logout" class="nav-link"><i class="fas fa-arrow-right-from-bracket" style="color: #ffffff;"></i></a>
+            <% } else { %>
+                <a href="/" class="nav-link">Entrar</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="container" id="container">
+        <div class="welcome-card" id="welcomeCard">
+            <% if (status === "loggedIn") { %>
+                <h1 class="card-title">Bem vindo <%= user.nm_users %></h1>
+            <% } else if(status === "loggedinE") { %>
+                <h1 class="card-title">Bem vindo <%= company.nm_empresa %></h1>
+            <% } else { %>
+                <h1 class="card-title">Bem vindo!</h1>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="search-bar" id="searchBar">
+        <input type="text" placeholder="Busque por uma transportadora">
+        <button><i class="fas fa-search"></i></button>
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide container mt-5 mb-5" data-ride="carousel">
+        <div class="carousel-inner">
+            <% for (let i = 0; i < companies.length; i += 3) { %>
+                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                    <div class="row">
+                        <% for (let j = i; j < i + 3 && j < companies.length; j++) { %>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= companies[j].nm_empresa %></h5>
+                                        <div class="rating">
+                                            <% 
+                                                const fullStars = Math.floor(companies[j].media_avaliacao);
+                                                const emptyStars = 5 - fullStars;
+                                            %>
+                                            <% for (let s = 0; s < fullStars; s++) { %>
+                                                <span><i class="fas fa-star"></i></span>
+                                            <% } %>
+                                            <% for (let s = 0; s < emptyStars; s++) { %>
+                                                <span><i class="far fa-star"></i></span>
+                                            <% } %>
+                                        </div>
+                                        
+                                        <a href="/company/<%= companies[j].cd_cnpj %>" class="btn btn-primary">Ver mais</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var welcomeCard = document.getElementById('welcomeCard');
+            var container = document.getElementById('container');
+            var searchBar = document.getElementById('searchBar');
+            if (welcomeCard && container && searchBar) {
+                setTimeout(function() {
+                    welcomeCard.classList.add('hidden');
+                    container.classList.add('hidden');
+                    setTimeout(function() {
+                        searchBar.classList.add('show');
+                    }, 300);
+                }, 2500);
+            }
+        });
+    </script>
+</body>
+</html>
